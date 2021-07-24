@@ -1,9 +1,9 @@
 <template lang="pug">
   .bord
-    .bord__square(v-for="posClass in posClassArray")(:class="posClass")(@click="addMark")
-      .bord__mark
+    .bord__square(v-for="squareClass in squareClassArray")(@click="onMark")(:class="squareClass")(data-player="0")
+      .bord__mark.-markCircle
         AtomCircle
-      .bord__mark
+      .bord__mark.-markCross
         AtomCross
 </template>
 
@@ -19,7 +19,7 @@ import AtomCross from '@/components/atoms/atom-cross.vue';
   }
 })
 export default class MoleculeBoard extends Vue {
-  posClassArray = [
+  squareClassArray = [
     '-top -left',
     '-top -center',
     '-top -right',
@@ -31,8 +31,9 @@ export default class MoleculeBoard extends Vue {
     '-bottom -right',
   ];
   
-  addMark() {
-    console.log('ok')
+  onMark(e) {
+    e.target.dataset.player = this.$store.state.player;
+    this.$store.state.player = this.$store.state.player === 1 ? 2 : 1; 
   }
 }
 </script>
@@ -56,28 +57,42 @@ export default class MoleculeBoard extends Vue {
     &.-top{
       border-bottom-style: solid; 
     }
-    // &.-middle{
+    &.-middle{
       
-    // }
+    }
     &.-bottom{
       border-top-style: solid; 
     }
     &.-left{
       border-right-style: solid;
     }
-    // &.-center{
+    &.-center{
 
-    // }
+    }
     &.-right{
       border-left-style: solid;
     }
   }
-  &__mark{
+  &__square[data-player="1"]{
+    pointer-events: none;
+  }
+  &__square[data-player="2"]{
+    pointer-events: none;
+  }
+  [data-player="0"] &__mark{
     display: none;
   }
-  &__mark.is-show{
+  [data-player="1"] &__mark.-markCircle{
     display: block;
-    pointer-events: none;
+  }
+  [data-player="1"] &__mark.-markCross{
+    display: none;
+  }
+  [data-player="2"] &__mark.-markCircle{
+    display: none;
+  }
+  [data-player="2"] &__mark.-markCross{
+    display: block;
   }
 }
 </style>
