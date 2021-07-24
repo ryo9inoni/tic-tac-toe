@@ -1,16 +1,16 @@
 <template lang="pug">
   .game
     .game__wrap
-      MoleculesBoard
+      MoleculeBoard
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import MoleculesBoard from '../molecules/molecule-board.vue';
+import MoleculeBoard from '../molecules/molecule-board.vue';
 
 @Component({
   components: {
-    MoleculesBoard
+    MoleculeBoard
   },
 })
 export default class OrganismGame extends Vue {}

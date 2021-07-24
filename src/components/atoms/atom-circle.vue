@@ -1,5 +1,5 @@
 <template lang="pug">
-  .circle
+  .circle.an-addMark
 </template>
 
 <script lang="ts">
@@ -10,16 +10,13 @@ export default class AtomCircle extends Vue {}
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/app.scss";
 .circle{
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  @include middle();
   box-sizing: border-box;
   width: 94px;
   height: 94px;
   border-radius: 50%;
   border: solid 5px #000000;
-  transform: translate(-50%, -50%);
 }
 </style>

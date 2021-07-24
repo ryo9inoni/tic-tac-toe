@@ -1,5 +1,5 @@
 <template lang="pug">
-  .cross
+  .cross.an-addMark
 </template>
 
 <script lang="ts">
@@ -10,15 +10,12 @@ export default class AtomCross extends Vue {}
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/app.scss";
 .cross{
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  @include middle();
   box-sizing: border-box;
   width: 94px;
   height: 94px;
-  transform: translate(-50%, -50%);
   &::before, &::after{
     content: "";
     position: absolute;

@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     start: false,
-    player: 0,
+    player: 1,
     time: 0,
   },
   mutations: {

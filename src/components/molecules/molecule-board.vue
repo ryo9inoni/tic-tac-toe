@@ -1,40 +1,38 @@
 <template lang="pug">
   .bord
-    .bord__square.-top.-left(@click="addMark")(v-if="store.state.player == 0")
-      AtomCross
-    .bord__square.-top.-left(@click="addMark")(v-else-if="store.state.player == 1")
-      AtomCross
-    .bord__square.-top.-center
-    .bord__square.-top.-right
-    .bord__square.-middle.-left
-    .bord__square.-middle.-center
-    .bord__square.-middle.-right
-    .bord__square.-bottom.-left
-    .bord__square.-bottom.-center
-    .bord__square.-bottom.-right
+    .bord__square(v-for="posClass in posClassArray")(:class="posClass")(@click="addMark")
+      .bord__mark
+        AtomCircle
+      .bord__mark
+        AtomCross
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import AtomCircle from '../atoms/atom-circle.vue';
-import AtomCross from '../atoms/atom-cross.vue';
+import AtomCircle from '@/components/atoms/atom-circle.vue';
+import AtomCross from '@/components/atoms/atom-cross.vue';
 
 @Component({
   components: {
     AtomCircle,
     AtomCross
-  },
+  }
 })
 export default class MoleculeBoard extends Vue {
+  posClassArray = [
+    '-top -left',
+    '-top -center',
+    '-top -right',
+    '-middle -left',
+    '-middle -center',
+    '-middle -right',
+    '-bottom -left',
+    '-bottom -center',
+    '-bottom -right',
+  ];
+  
   addMark() {
-    // switch (store.state.player) {
-    //   case 0:
-    //     return store.state.player = 1;
-    //     break;
-    //   case 1:
-    //     return store.state.player = 0;
-    //     break;
-    // }
+    console.log('ok')
   }
 }
 </script>
@@ -58,21 +56,28 @@ export default class MoleculeBoard extends Vue {
     &.-top{
       border-bottom-style: solid; 
     }
-    &.-middle{
+    // &.-middle{
       
-    }
+    // }
     &.-bottom{
       border-top-style: solid; 
     }
     &.-left{
       border-right-style: solid;
     }
-    &.-center{
+    // &.-center{
 
-    }
+    // }
     &.-right{
       border-left-style: solid;
     }
+  }
+  &__mark{
+    display: none;
+  }
+  &__mark.is-show{
+    display: block;
+    pointer-events: none;
   }
 }
 </style>

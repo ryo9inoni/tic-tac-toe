@@ -1,7 +1,6 @@
 <template lang="pug">
-  RouterView
+  router-view
 </template>
 
 <style lang="scss">
-  // @import url(./assets/css/destyle.css);
 </style>

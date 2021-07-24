@@ -1,0 +1,14 @@
+.an-addMark{
+  animation-name: addMark;
+  animation-duration: 300ms;
+  animation-timing-function: $easeOutBack;
+  animation-fill-mode: forwards;
+}
+@keyframes addMark {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
