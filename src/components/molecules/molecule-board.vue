@@ -1,6 +1,6 @@
 <template lang="pug">
   .bord
-    .bord__square(v-for="squareClass in squareClassArray")(@click="onMark")(:class="squareClass")(data-player="0")
+    .bord__square(v-for="squareClass in squareClassArray")(@click="OnMark")(:class="squareClass")(data-player="0")
       .bord__mark.-markCircle
         AtomCircle
       .bord__mark.-markCross
@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop, Emit} from 'vue-property-decorator';
 import AtomCircle from '@/components/atoms/atom-circle.vue';
 import AtomCross from '@/components/atoms/atom-cross.vue';
 
@@ -29,20 +29,26 @@ export default class MoleculeBoard extends Vue {
     '-bottom -left',
     '-bottom -center',
     '-bottom -right',
-  ];
-  
-  onMark(e) {
-    e.target.dataset.player = this.$store.state.player;
-    this.$store.state.player = this.$store.state.player === 1 ? 2 : 1; 
+  ]
+
+  @Prop(Number) player: number;
+
+  OnMark(e: any){
+    e.target.dataset.player = this.player === 1 ? 2 : 1;
+    this.SubmitPlayer();
   }
+
+  @Emit('submitPlayer') SubmitPlayer(){
+    return this.player === 1 ? 2 : 1;
+  }  
 }
 </script>
 
 <style scoped lang="scss">
 .bord{
   display: block;
-  width: 640px;
-  height: 640px;
+  width: 540px;
+  height: 540px;
   font-size: 0;
   &__square{
     display: inline-block;

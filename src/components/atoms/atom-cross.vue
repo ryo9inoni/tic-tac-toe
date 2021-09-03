@@ -14,8 +14,8 @@ export default class AtomCross extends Vue {}
 .cross{
   @include middle();
   box-sizing: border-box;
-  width: 94px;
-  height: 94px;
+  width: 64px;
+  height: 64px;
   &::before, &::after{
     content: "";
     position: absolute;

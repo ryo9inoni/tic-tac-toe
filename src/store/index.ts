@@ -12,11 +12,11 @@ player: 2「ばつ」
 
 time: 0「未スタート」 
 time: 1 ~ 「ゲーム中」
-time: ~ 90「ゲーム終了」
+time: ~ 30「ゲーム終了」
 */
 export default new Vuex.Store({
   state: {
-    player: 1,
+    player: 0,
     time: 0,
   },
   mutations: {

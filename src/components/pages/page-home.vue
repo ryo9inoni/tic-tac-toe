@@ -12,14 +12,14 @@ import OrganismGame from '../organisms/organism-game.vue';
     OrganismGame
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+
+}
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/app.scss";
 .home{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100vh;
 }
