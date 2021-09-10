@@ -27,16 +27,11 @@ export default class MoleculeBoard extends Vue {
   @Prop(Number)
   playerId: number;
 
-  mounted() {
-    console.log();
-  }
-
   OnSelect(blockPos, squarePos){
     if(this.boradData[blockPos][squarePos] === -1){
       const id = this.playerId === 1 ? 2 : 1;
       this.boradData[blockPos][squarePos] = id;
       this.SubmitPlayerId(id);
-      
     }
   }
 
