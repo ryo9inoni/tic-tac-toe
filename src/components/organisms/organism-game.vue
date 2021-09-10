@@ -2,7 +2,7 @@
   .game
     .game__wrap
       //- MoleculeTimer
-      MoleculeBoard(:player="IsPlayer")(@submitPlayer="PostPlayer")
+      MoleculeBoard(:playerId="IsPlayerId")(@SubmitPlayerId="PostPlayerId")
 </template>
 
 <script lang="ts">
@@ -18,12 +18,12 @@ import MoleculeTimer from '../molecules/molecule-timer.vue';
 })
 export default class OrganismGame extends Vue {
 
-  get IsPlayer(): number{
-    return this.$store.state.player;
+  get IsPlayerId(): number{
+    return this.$store.state.playerId;
   }
 
-  PostPlayer(num: number){
-    this.$store.state.player = num; 
+  PostPlayerId(num: number){
+    this.$store.state.playerId = num; 
   }
 }
 </script>
@@ -31,7 +31,8 @@ export default class OrganismGame extends Vue {
 .game{
   position: relative;
   margin: 0 auto;
-  width: 1024px;
+  width: 100%;
+  max-width: 1024px;
   &__wrap{
     display: flex;
     justify-content: center;

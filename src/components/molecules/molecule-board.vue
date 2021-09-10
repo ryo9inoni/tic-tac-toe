@@ -1,14 +1,13 @@
 <template lang="pug">
   .bord
-    .bord__square(v-for="squareClass in squareClassArray")(@click="OnMark")(:class="squareClass")(data-player="0")
-      .bord__mark.-markCircle
-        AtomCircle
-      .bord__mark.-markCross
-        AtomCross
+    .bord__block(v-for="(block, blockPos) in boradData")(:class="blockPos")
+      .bord__square(v-for="(square, squarePos) in block")(:class="squarePos")(@click="OnSelect(blockPos, squarePos)")
+        AtomCircle(v-if="square === 1")
+        AtomCross(v-if="square === 2")
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit} from 'vue-property-decorator';
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import AtomCircle from '@/components/atoms/atom-circle.vue';
 import AtomCross from '@/components/atoms/atom-cross.vue';
 
@@ -19,86 +18,95 @@ import AtomCross from '@/components/atoms/atom-cross.vue';
   }
 })
 export default class MoleculeBoard extends Vue {
-  squareClassArray = [
-    '-top -left',
-    '-top -center',
-    '-top -right',
-    '-middle -left',
-    '-middle -center',
-    '-middle -right',
-    '-bottom -left',
-    '-bottom -center',
-    '-bottom -right',
-  ]
+  boradData = {
+    top: { left: -1, center: -1, right: -1 }, 
+    middle: { left: -1, center: -1, right: -1 },
+    bottom: { left: -1, center: -1, right: -1 },
+  }
+   
+  @Prop(Number)
+  playerId: number;
 
-  @Prop(Number) player: number;
-
-  OnMark(e: any){
-    e.target.dataset.player = this.player === 1 ? 2 : 1;
-    this.SubmitPlayer();
+  mounted() {
+    console.log();
   }
 
-  @Emit('submitPlayer') SubmitPlayer(){
-    return this.player === 1 ? 2 : 1;
-  }  
+  OnSelect(blockPos, squarePos){
+    if(this.boradData[blockPos][squarePos] === -1){
+      const id = this.playerId === 1 ? 2 : 1;
+      this.boradData[blockPos][squarePos] = id;
+      this.SubmitPlayerId(id);
+      
+    }
+  }
+
+  @Emit('SubmitPlayerId')
+  SubmitPlayerId(id){
+    return id;
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .bord{
   display: block;
-  width: 540px;
-  height: 540px;
+  width: 100%;
+  height: 100%;
+  max-width: 540px;
+  max-height: 540px;
   font-size: 0;
+  &__block{
+    display: block;
+    width: 100%;
+    height: 33.333333333%;
+  }
   &__square{
     display: inline-block;
     position: relative;
     box-sizing: border-box;
     width: 33.333333333%;
-    height: 33.333333333%;
+    height: 100%;
     border-width: 5px;
     border-color: #000000;
     border-style: none;
     cursor: pointer;
-    &.-top{
-      border-bottom-style: solid; 
-    }
-    &.-middle{
-      
-    }
-    &.-bottom{
-      border-top-style: solid; 
-    }
-    &.-left{
+  }
+  .top{
+    .left{
       border-right-style: solid;
+      border-bottom-style: solid;
     }
-    &.-center{
-
+    .center{
+      border-bottom-style: solid;
     }
-    &.-right{
+    .right{
+      border-bottom-style: solid;
       border-left-style: solid;
     }
   }
-  &__square[data-player="1"]{
-    pointer-events: none;
+  .middle{
+    .left{
+      border-right-style: solid;
+    }
+    .center{
+    
+    }
+    .right{
+      border-left-style: solid;
+    }
   }
-  &__square[data-player="2"]{
-    pointer-events: none;
-  }
-  [data-player="0"] &__mark{
-    display: none;
-  }
-  [data-player="1"] &__mark.-markCircle{
-    display: block;
-  }
-  [data-player="1"] &__mark.-markCross{
-    display: none;
-  }
-  [data-player="2"] &__mark.-markCircle{
-    display: none;
-  }
-  [data-player="2"] &__mark.-markCross{
-    display: block;
+  .bottom{
+    .left{
+      border-top-style: solid;
+      border-right-style: solid;
+    }
+    .center{
+      border-top-style: solid;
+    }
+    .right{
+      border-top-style: solid;
+      border-left-style: solid;
+    }
   }
 }
 </style>
