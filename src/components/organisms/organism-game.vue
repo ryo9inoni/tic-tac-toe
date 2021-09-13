@@ -2,7 +2,8 @@
   .game
     .game__wrap
       //- MoleculeTimer
-      MoleculeBoard(:playerId="IsPlayerId")(@SubmitPlayerId="PostPlayerId")
+      MoleculeBoard(:playerId="IsPlayerId")(@SubmitPlayerId="PostPlayerId")(@SubmitWinnerId="PostWinnerId")
+      
 </template>
 
 <script lang="ts">
@@ -21,9 +22,15 @@ export default class OrganismGame extends Vue {
   get IsPlayerId(): number{
     return this.$store.state.playerId;
   }
-
   PostPlayerId(num: number){
     this.$store.state.playerId = num; 
+  }
+
+  get IsWinnerId(): number{
+    return this.$store.state.winnerId;
+  }
+  PostWinnerId(num: number){
+    this.$store.state.winnerId = num; 
   }
 }
 </script>

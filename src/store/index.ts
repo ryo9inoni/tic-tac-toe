@@ -18,6 +18,7 @@ export default new Vuex.Store({
   state: {
     playerId: -1,
     time: 0,
+    winner: -1
   },
   mutations: {
   },

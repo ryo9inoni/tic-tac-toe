@@ -18,25 +18,77 @@ import AtomCross from '@/components/atoms/atom-cross.vue';
   }
 })
 export default class MoleculeBoard extends Vue {
-  boradData = {
+  boradData: any = {
     top: { left: -1, center: -1, right: -1 }, 
     middle: { left: -1, center: -1, right: -1 },
-    bottom: { left: -1, center: -1, right: -1 },
+    bottom: { left: -1, center: -1, right: -1 }
   }
    
   @Prop(Number)
   playerId: number;
 
-  OnSelect(blockPos, squarePos){
+  OnSelect(blockPos: any, squarePos: any){
     if(this.boradData[blockPos][squarePos] === -1){
       const id = this.playerId === 1 ? 2 : 1;
       this.boradData[blockPos][squarePos] = id;
       this.SubmitPlayerId(id);
+      this.CheckBord();
     }
   }
 
   @Emit('SubmitPlayerId')
-  SubmitPlayerId(id){
+  SubmitPlayerId(id: number){
+    return id;
+  }
+
+  CheckBord(){
+    for (const brock in this.boradData) {
+      // 横
+      const row = [
+        this.boradData[brock]['left'],
+        this.boradData[brock]['center'],
+        this.boradData[brock]['right'],
+      ];
+      this.Winner(row);
+
+      for (const square in this.boradData[brock]) {
+        // 縦
+        const col = [
+          this.boradData['top'][square],
+          this.boradData['middle'][square],
+          this.boradData['bottom'][square]
+        ];
+        this.Winner(col);
+
+        // 左斜め
+        const skew01 = [
+          this.boradData['top']['left'],
+          this.boradData['middle']['center'],
+          this.boradData['bottom']['right']
+        ];
+        this.Winner(skew01);
+
+        // 右斜め
+        const skew02 = [
+          this.boradData['top']['right'],
+          this.boradData['middle']['center'],
+          this.boradData['bottom']['left']
+        ];
+        this.Winner(skew02);
+      }
+    }
+  }
+
+  Winner(bord){
+    if(bord.every(v => v === 1)){
+      this.SubmitWinnerId(1);
+    }else if(bord.every(v => v === 2)){
+      this.SubmitWinnerId(2);
+    }
+  }
+
+  @Emit('SubmitWinnerId')
+  SubmitWinnerId(id: number){
     return id;
   }
 }
