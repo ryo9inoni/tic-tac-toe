@@ -1,6 +1,5 @@
 <template lang="pug">
   .circle.an-addMark
-    | test
 </template>
 
 <script lang="ts">
